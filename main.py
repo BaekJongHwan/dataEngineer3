@@ -48,12 +48,15 @@ def load(lines):
     try:
       cur.execute("BEGIN")
       lines.sort()
+      sql = "DELETE FROM baekjonghwan.name_gender"
+      print(sql)
+      cur.execute(sql)
       for r in lines:
           if r != '':
               (name, gender) = r.split(",")
               if name != 'name' and gender != 'gender':
                 print(name, "-", gender)
-                sql = "DELETE FROM baekjonghwan.name_gender; INSERT INTO baekjonghwan.name_gender VALUES ('{n}', '{g}')".format(n=name, g=gender)
+                sql = "INSERT INTO baekjonghwan.name_gender VALUES ('{n}', '{g}')".format(n=name, g=gender)
                 print(sql)
                 cur.execute(sql)
       cur.execute("END")
